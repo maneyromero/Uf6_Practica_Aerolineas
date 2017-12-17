@@ -16,7 +16,11 @@ public class Uf6_Practica_Aerolineas {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("hola manel");
+        String url="jdbc:mysql://localhost:3306/uf6_practica_aerolineas";
+       String username="root";
+       String password="";
+       String query="select * from aerolinies;";
+       
     }
     
 }
