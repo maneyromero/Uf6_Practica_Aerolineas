@@ -20,18 +20,21 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     /**
      * @param args the command line arguments
      */
+    private static String nombre;
     public static void main(String[] args) {
         // TODO code application logic here
         String url = "jdbc:mysql://localhost:3306/uf6_practica_aerolineas";
         String username = "root";
         String password = "";
-        String query = "select * from aerolinies;";
+        String query = "select * from aerolineas;";
         try (Connection con = DriverManager.getConnection(url, username, password);
                 Statement statement = con.createStatement();
                 ResultSet rs = statement.executeQuery(query);) {
             while (rs.next()) {
-
+nombre=rs.getString("nombre");
+                System.out.println("Nombre aerolinea: "+nombre);
             }
+            con.close();
         } catch (SQLException ex) {
 
         }
