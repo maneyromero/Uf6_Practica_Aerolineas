@@ -24,9 +24,9 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        String url = "jdbc:mysql://localhost:3306/uf6_practica_aerolineas";
-        String username = "root";
-        String password = "";
+        MYSQLDBConnection.url = "jdbc:mysql://localhost:3306/uf6_practica_aerolineas";
+        MYSQLDBConnection.username = "root";
+        MYSQLDBConnection.password = "";
         String query = "select * from aerolineas;";
         try (Connection con = DriverManager.getConnection(url, username, password);
                 Statement statement = con.createStatement();
