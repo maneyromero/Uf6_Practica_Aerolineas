@@ -9,11 +9,11 @@ package Model;
  *
  * @author Manel
  */
-public class ticked {
+public class Ticket {
     private String codigo_ticked;
     private String dni;
 
-    public ticked(String codigo_ticked, String dni) {
+    public Ticket(String codigo_ticked, String dni) {
         this.codigo_ticked = codigo_ticked;
         this.dni = dni;
     }
