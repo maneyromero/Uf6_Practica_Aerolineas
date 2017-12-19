@@ -11,7 +11,7 @@ package Utilities;
  */
 public class MYSQLDBConnection {
 
-    protected static String url;
-    protected static String username;
-    protected static String password;
+    public static String url="jdbc:mysql://localhost:3306/uf6_practica_aerolineas";
+    public static String username="root";
+    public static String password="";
 }
