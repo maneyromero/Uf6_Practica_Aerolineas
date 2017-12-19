@@ -10,6 +10,7 @@ package Model;
  * @author Manel
  */
 public class Aeropuerto {
+
     private String codigo_aeropuerto;
     private String nombre;
 
@@ -25,5 +26,5 @@ public class Aeropuerto {
     public String getNombre() {
         return nombre;
     }
-    
+
 }

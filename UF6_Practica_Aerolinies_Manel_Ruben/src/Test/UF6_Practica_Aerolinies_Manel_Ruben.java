@@ -14,8 +14,12 @@ import Dao.TicketDAO;
 import Model.Passajero;
 import Utilities.ConnectDB;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +30,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     /**
      * @param args the command line arguments
      */
-    private static String nombre,DNI,apellido1,apellido2,codigo_avion;
+    private static String nombre, DNI, apellido1, apellido2, codigo_avion;
     private static int edad;
 
     public static void main(String[] args) {
@@ -39,29 +43,35 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
         TicketDAO ticket;
         Scanner sc = new Scanner(System.in);
         int num = 0;
-        
+
         try {
-            Connection con=ConnectDB.openConnection();
+            Connection con = ConnectDB.openConnection();
             do {
                 escribirMenu();
                 num = sc.nextInt();
                 switch (num) {
                     case 1:
-                        String query="SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like '"+codigo_avion+"'))";
                         System.out.println("Introduce el destino");
-                        codigo_avion=sc.next();
-                        System.out.println("Introduce su DNI");
-                        DNI=sc.next();
-                        System.out.println("Introduce el nombre");
-                        nombre=sc.next();
-                        System.out.println("Introduce el primer apellido");
-                        apellido1=sc.next();
-                        System.out.println("Introduce el segundo apellido");
-                        apellido2=sc.next();
-                        System.out.println("Introduce la edad");
-                        edad=sc.nextInt();
-                        Passajero p=new Passajero(DNI, codigo_avion, nombre, apellido1, apellido2, edad);
-                        passajero.addPasajero(p, con);
+                        codigo_avion = sc.next();
+                        String query = "SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like '" + codigo_avion + "'))";
+                        ResultSet rs = DriverManager.getConnection(MYSQLDBConnection.url, MYSQLDBConnection.username, MYSQLDBConnection.password).createStatement().executeQuery(query);
+                        rs.next();
+                        codigo_avion = rs.getString("codigo_avion");
+                        if (!codigo_avion.isEmpty()) {
+
+                            System.out.println("Introduce su DNI");
+                            DNI = sc.next();
+                            System.out.println("Introduce el nombre");
+                            nombre = sc.next();
+                            System.out.println("Introduce el primer apellido");
+                            apellido1 = sc.next();
+                            System.out.println("Introduce el segundo apellido");
+                            apellido2 = sc.next();
+                            System.out.println("Introduce la edad");
+                            edad = sc.nextInt();
+                            Passajero p = new Passajero(DNI, codigo_avion, nombre, apellido1, apellido2, edad);
+                            passajero.addPasajero(p, con);
+                        }
                         con.close();
                         break;
                     case 2:
@@ -79,10 +89,14 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                 }
             } while (num != 5);
         } catch (SQLException ex) {
-
+            Logger.getLogger(UF6_Practica_Aerolinies_Manel_Ruben.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
+    
+
+    
+
+    
 
     private static void escribirMenu() {
         System.out.println("-----Menu-----");

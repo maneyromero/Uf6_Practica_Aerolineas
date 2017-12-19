@@ -10,6 +10,7 @@ package Model;
  * @author Manel
  */
 public class Ticket {
+
     private String codigo_ticked;
     private String dni;
 
@@ -25,6 +26,5 @@ public class Ticket {
     public String getDni() {
         return dni;
     }
-    
-    
+
 }

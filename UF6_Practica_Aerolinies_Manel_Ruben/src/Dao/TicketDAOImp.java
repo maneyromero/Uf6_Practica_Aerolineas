@@ -21,32 +21,32 @@ public class TicketDAOImp implements TicketDAO {
 
     @Override
     public void addTicket(Ticket ticket, Connection con) {
-        try(PreparedStatement stmt =con.prepareStatement("INSERT INTO ticked VALUES (?,?)")){
+        try (PreparedStatement stmt = con.prepareStatement("INSERT INTO ticked VALUES (?,?)")) {
             stmt.setString(1, ticket.getCodigo_ticked());
             stmt.setString(2, ticket.getDni());
-            if(stmt.executeUpdate()!=1){
+            if (stmt.executeUpdate() != 1) {
                 System.out.println("Error Ticket NO echo");
-            }else{
+            } else {
                 System.out.println("Ticked echo!!");
             }
-        }catch(SQLException ex){
-            System.out.println("Error "+ex);
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex);
         }
 
     }
 
     @Override
     public ArrayList<Ticket> listarTicket(Connection con) {
-      ArrayList<Ticket> ticket=new ArrayList<>();
-        try(Statement statement= con.createStatement()){
-            String query="Select * from ticked";
-            ResultSet rs=statement.executeQuery(query);
-            
-            while(rs.next()){
-                ticket.add(new Ticket(rs.getString("codigo_ticked"),rs.getString("DNI_fk")));
+        ArrayList<Ticket> ticket = new ArrayList<>();
+        try (Statement statement = con.createStatement()) {
+            String query = "Select * from ticked";
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                ticket.add(new Ticket(rs.getString("codigo_ticked"), rs.getString("DNI_fk")));
             }
-            
-        }catch(SQLException ex){
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return ticket;

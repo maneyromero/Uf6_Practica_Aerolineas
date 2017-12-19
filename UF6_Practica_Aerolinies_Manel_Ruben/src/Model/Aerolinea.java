@@ -12,9 +12,10 @@ import javax.activation.CommandInfo;
  * @author Manel
  */
 public class Aerolinea {
-   private String codigo_aerolinea;
-   private String codigo_aeropuerto_fk;
-   private String nombre;
+
+    private String codigo_aerolinea;
+    private String codigo_aeropuerto_fk;
+    private String nombre;
 
     public Aerolinea(String codigo_aerolinea, String codigo_aeropuerto_fk, String nombre) {
         this.codigo_aerolinea = codigo_aerolinea;
@@ -33,6 +34,5 @@ public class Aerolinea {
     public String getNombre() {
         return nombre;
     }
-    
-   
+
 }

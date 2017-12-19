@@ -22,36 +22,36 @@ public class PassajeroDAOImp implements PassajeroDAO {
 
     @Override
     public void addPasajero(Passajero p, Connection con) {
-try(PreparedStatement stmt =con.prepareStatement("INSERT INTO  pasajeros VALUES (?,?,?,?,?,?)")){
+        try (PreparedStatement stmt = con.prepareStatement("INSERT INTO  pasajeros VALUES (?,?,?,?,?,?)")) {
             stmt.setString(1, p.getDni());
             stmt.setString(2, p.getCodigo_avion_fk());
             stmt.setString(3, p.getNombre());
             stmt.setString(4, p.getApellido1());
             stmt.setString(5, p.getApellido2());
             stmt.setInt(6, p.getEdad());
-            if(stmt.executeUpdate()!=1){
+            if (stmt.executeUpdate() != 1) {
                 System.out.println("Error Passajero NO a�adido");
-            }else{
+            } else {
                 System.out.println("Passajero A�adido!!");
             }
-        }catch(SQLException ex){
-            System.out.println("Error "+ex);
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex);
         }
 
     }
 
     @Override
     public ArrayList<Passajero> listarPassajero(Connection con) {
-        ArrayList<Passajero> passajero=new ArrayList<>();
-        try(Statement statement= con.createStatement()){
-            String query="Select * from pasajeros";
-            ResultSet rs=statement.executeQuery(query);
-            
-            while(rs.next()){
-                passajero.add(new Passajero(rs.getString("DNI"),rs.getString("codigo_avion_fk"),rs.getString("nombre"),rs.getString("apellido1"),rs.getString("apellido2"),rs.getInt("edad")));
+        ArrayList<Passajero> passajero = new ArrayList<>();
+        try (Statement statement = con.createStatement()) {
+            String query = "Select * from pasajeros";
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                passajero.add(new Passajero(rs.getString("DNI"), rs.getString("codigo_avion_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getInt("edad")));
             }
-            
-        }catch(SQLException ex){
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return passajero;

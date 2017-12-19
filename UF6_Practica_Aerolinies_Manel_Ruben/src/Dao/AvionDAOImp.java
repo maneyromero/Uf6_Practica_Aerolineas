@@ -39,16 +39,16 @@ public class AvionDAOImp implements AvionDAO {
 
     @Override
     public ArrayList<Avion> listarAvion(Connection con) {
-       ArrayList<Avion> avion=new ArrayList<>();
-        try(Statement statement= con.createStatement()){
-            String query="Select * from Aviones";
-            ResultSet rs=statement.executeQuery(query);
-            
-            while(rs.next()){
-                avion.add(new Avion(rs.getString("codigo_avion"),rs.getString("codigo_aerolinea_fk"),rs.getString("modelo")));
+        ArrayList<Avion> avion = new ArrayList<>();
+        try (Statement statement = con.createStatement()) {
+            String query = "Select * from Aviones";
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                avion.add(new Avion(rs.getString("codigo_avion"), rs.getString("codigo_aerolinea_fk"), rs.getString("modelo")));
             }
-            
-        }catch(SQLException ex){
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return avion;

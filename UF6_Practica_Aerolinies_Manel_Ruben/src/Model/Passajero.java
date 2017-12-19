@@ -10,6 +10,7 @@ package Model;
  * @author Manel
  */
 public class Passajero {
+
     private String dni;
     private String codigo_avion_fk;
     private String nombre;
@@ -50,6 +51,4 @@ public class Passajero {
         return edad;
     }
 
-   
-    
 }

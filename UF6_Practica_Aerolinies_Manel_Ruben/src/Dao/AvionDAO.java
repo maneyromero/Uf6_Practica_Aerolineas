@@ -14,7 +14,9 @@ import java.util.ArrayList;
  * @author Manel
  */
 public interface AvionDAO {
-    public Avion buscarAvion(String codigo,Connection con);
+
+    public Avion buscarAvion(String codigo, Connection con);
+
     public ArrayList<Avion> listarAvion(Connection con);
 
 }

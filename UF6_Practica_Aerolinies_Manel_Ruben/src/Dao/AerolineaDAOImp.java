@@ -40,17 +40,17 @@ public class AerolineaDAOImp implements AerolineaDAO {
     }
 
     @Override
-     public ArrayList<Aerolinea> listarAerolinea(Connection con) {
-        ArrayList<Aerolinea> aerolinea=new ArrayList<>();
-        try(Statement statement= con.createStatement()){
-            String query="Select * from Aerolineas";
-            ResultSet rs=statement.executeQuery(query);
-            
-            while(rs.next()){
-                aerolinea.add(new Aerolinea(rs.getString("codigo_aerolinea"),rs.getString("codigo_aeropuerto_fk"),rs.getString("nombre")));
+    public ArrayList<Aerolinea> listarAerolinea(Connection con) {
+        ArrayList<Aerolinea> aerolinea = new ArrayList<>();
+        try (Statement statement = con.createStatement()) {
+            String query = "Select * from Aerolineas";
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                aerolinea.add(new Aerolinea(rs.getString("codigo_aerolinea"), rs.getString("codigo_aeropuerto_fk"), rs.getString("nombre")));
             }
-            
-        }catch(SQLException ex){
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return aerolinea;

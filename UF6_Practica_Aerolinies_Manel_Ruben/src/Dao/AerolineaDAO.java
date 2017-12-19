@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * @author Manel
  */
 public interface AerolineaDAO {
-    public Aerolinea buscarAerolinea(String codigo,Connection con);
+
+    public Aerolinea buscarAerolinea(String codigo, Connection con);
+
     public ArrayList<Aerolinea> listarAerolinea(Connection con);
 }

@@ -10,6 +10,7 @@ package Model;
  * @author Manel
  */
 public class Avion {
+
     private String codigo_avion;
     private String codigo_aerolinea_fk;
     private String modelo;
@@ -31,6 +32,5 @@ public class Avion {
     public String getModelo() {
         return modelo;
     }
-    
-    
+
 }
