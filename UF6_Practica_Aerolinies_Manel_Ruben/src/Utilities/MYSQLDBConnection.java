@@ -13,7 +13,5 @@ package Utilities;
 public class MYSQLDBConnection {
    protected static String url;
    protected static String username;
-   hola
    protected static String password;
-   hla
 }
