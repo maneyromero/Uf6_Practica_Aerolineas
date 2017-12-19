@@ -6,6 +6,7 @@
 package uf6_practica_aerolinies_manel_ruben;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.MySQLConnection;
 import java.sql.DriverManager;
 import javax.activation.CommandInfo;
 
@@ -22,7 +23,7 @@ public class ConnectDB {
    
    public static Connection openConnection() {
        if(connection==null){
-           connection=DriverManager.getConnection(url, user, password);
+           connection=DriverManager.getConnection(MYSQLDBConnection.url, MYSQLDBConnection.username, MYSQLDBConnection.password);
            System.out.println("Open database");
        }
        return connection;
