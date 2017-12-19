@@ -12,4 +12,19 @@ package uf6_practica_aerolinies_manel_ruben;
 public class ticked {
     private String codigo_ticked;
     private String dni;
+
+    public ticked(String codigo_ticked, String dni) {
+        this.codigo_ticked = codigo_ticked;
+        this.dni = dni;
+    }
+
+    public String getCodigo_ticked() {
+        return codigo_ticked;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+    
+    
 }
