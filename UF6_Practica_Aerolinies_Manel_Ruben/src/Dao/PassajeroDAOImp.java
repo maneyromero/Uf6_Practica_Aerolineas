@@ -28,11 +28,11 @@ try(PreparedStatement stmt =con.prepareStatement("INSERT INTO  pasajeros VALUES 
             stmt.setString(3, p.getNombre());
             stmt.setString(4, p.getApellido1());
             stmt.setString(5, p.getApellido2());
-            stmt.setString(6, p.getEdad());
+            stmt.setInt(6, p.getEdad());
             if(stmt.executeUpdate()!=1){
-                System.out.println("Error Passajero NO añadido");
+                System.out.println("Error Passajero NO aï¿½adido");
             }else{
-                System.out.println("Passajero Añadido!!");
+                System.out.println("Passajero Aï¿½adido!!");
             }
         }catch(SQLException ex){
             System.out.println("Error "+ex);
