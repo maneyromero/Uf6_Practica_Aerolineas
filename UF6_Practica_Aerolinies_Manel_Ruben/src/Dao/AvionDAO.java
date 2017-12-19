@@ -5,10 +5,16 @@
  */
 package Dao;
 
+import Model.Avion;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 /**
  *
  * @author Manel
  */
 public interface AvionDAO {
-    
+    public Avion buscarAvion(String codigo,Connection con);
+    public ArrayList<Avion> listarAvion(Connection con);
+
 }

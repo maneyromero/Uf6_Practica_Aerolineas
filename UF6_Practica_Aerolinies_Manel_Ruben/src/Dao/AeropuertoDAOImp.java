@@ -5,10 +5,25 @@
  */
 package Dao;
 
+import Model.Aeropuerto;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 /**
  *
  * @author Manel
  */
 public class AeropuertoDAOImp implements AeropuertoDAO{
+
+    @Override
+    public Aeropuerto buscarAeropuerto(String codigo, Connection con) {
+        Aeropuerto Aeropuerto = null;
+        return Aeropuerto;
+    }
+
+    @Override
+    public ArrayList<Aeropuerto> listarAeropuerto(Connection con) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

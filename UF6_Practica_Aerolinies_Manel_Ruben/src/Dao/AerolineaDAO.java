@@ -5,10 +5,15 @@
  */
 package Dao;
 
+import Model.Aerolinea;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 /**
  *
  * @author Manel
  */
 public interface AerolineaDAO {
-    
+    public Aerolinea buscarAerolinea(String codigo,Connection con);
+    public ArrayList<Aerolinea> listarAerolinea(Connection con);
 }

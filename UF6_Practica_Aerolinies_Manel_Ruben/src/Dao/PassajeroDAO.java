@@ -5,10 +5,16 @@
  */
 package Dao;
 
+import Model.Passajero;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 /**
  *
  * @author Manel
  */
 public interface PassajeroDAO {
-    
+public void addPasajero(Passajero p,Connection con);  
+public ArrayList<Passajero> listarPassajero(Connection con);
+public Passajero buscarPassajero(String dni,Connection con);
 }

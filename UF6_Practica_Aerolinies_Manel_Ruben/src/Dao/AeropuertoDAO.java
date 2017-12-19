@@ -5,10 +5,16 @@
  */
 package Dao;
 
+import Model.Aeropuerto;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 /**
  *
  * @author Manel
  */
 public interface AeropuertoDAO {
-    
+    public Aeropuerto buscarAeropuerto(String codigo,Connection con);
+    public ArrayList<Aeropuerto> listarAeropuerto(Connection con);
+
 }
