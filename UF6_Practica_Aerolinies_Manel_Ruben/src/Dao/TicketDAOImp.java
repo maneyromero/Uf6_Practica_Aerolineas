@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Statement;
 
 /**
  *
@@ -25,7 +26,19 @@ public class TicketDAOImp implements TicketDAO {
 
     @Override
     public ArrayList<Ticket> listarTicket(Connection con) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ArrayList<Ticket> ticket=new ArrayList<>();
+        try(Statement statement= con.createStatement()){
+            String query="Select * from ticked";
+            ResultSet rs=statement.executeQuery(query);
+            
+            while(rs.next()){
+                ticket.add(new Ticket(rs.getString("codigo_ticked"),rs.getString("DNI_fk")));
+            }
+            
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return ticket;
     }
 
     @Override
