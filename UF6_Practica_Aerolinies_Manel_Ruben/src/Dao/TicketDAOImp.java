@@ -5,20 +5,22 @@
  */
 package Dao;
 
-
 import Model.Ticket;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  *
  * @author Manel
  */
-public class TicketDAOImp implements TicketDAO{
+public class TicketDAOImp implements TicketDAO {
 
     @Override
     public void addTicket(Ticket ticket, Connection con) {
-    
+
     }
 
     @Override
@@ -28,7 +30,21 @@ public class TicketDAOImp implements TicketDAO{
 
     @Override
     public Ticket buscarTicket(String codigo, Connection con) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Ticket ticket = null;
+        try (PreparedStatement stmt = con.prepareStatement("Select * FROM ticked Where codigo_ticked like ?")) {
+            ResultSet rs = stmt.executeQuery();
+            stmt.setString(1, codigo);
+            if (!rs.next()) {
+                return ticket;
+            } else {
+                ticket = new Ticket(rs.getString("codigo_ticked"), rs.getString("DNI_fk"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+        return ticket;
     }
-    
+
 }

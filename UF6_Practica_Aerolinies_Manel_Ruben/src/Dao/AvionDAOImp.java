@@ -7,18 +7,33 @@ package Dao;
 
 import Model.Avion;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  *
  * @author Manel
  */
-public class AvionDAOImp implements AvionDAO{
+public class AvionDAOImp implements AvionDAO {
 
     @Override
     public Avion buscarAvion(String codigo, Connection con) {
-        Avion Avion = null;
-        return Avion;
+        Avion avion = null;
+        try (PreparedStatement stmt = con.prepareStatement("Select * FROM aviones Where codigo_avion like ?")) {
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                return avion;
+            } else {
+                avion = new Avion(rs.getString("codigo_avion"), rs.getString("codigo_aerolinea_fk"), rs.getString("modelo"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return avion;
     }
 
     @Override
@@ -26,8 +41,4 @@ public class AvionDAOImp implements AvionDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
- 
-
-  
-    
 }
