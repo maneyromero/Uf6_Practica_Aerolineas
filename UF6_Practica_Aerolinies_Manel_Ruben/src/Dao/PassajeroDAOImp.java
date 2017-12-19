@@ -22,6 +22,21 @@ public class PassajeroDAOImp implements PassajeroDAO {
 
     @Override
     public void addPasajero(Passajero p, Connection con) {
+try(PreparedStatement stmt =con.prepareStatement("INSERT INTO  pasajeros VALUES (?,?,?,?,?,?)")){
+            stmt.setString(1, p.getDni());
+            stmt.setString(2, p.getCodigo_avion_fk());
+            stmt.setString(3, p.getNombre());
+            stmt.setString(4, p.getApellido1());
+            stmt.setString(5, p.getApellido2());
+            stmt.setString(6, p.getEdad());
+            if(stmt.executeUpdate()!=1){
+                System.out.println("Error Passajero NO añadido");
+            }else{
+                System.out.println("Passajero Añadido!!");
+            }
+        }catch(SQLException ex){
+            System.out.println("Error "+ex);
+        }
 
     }
 
