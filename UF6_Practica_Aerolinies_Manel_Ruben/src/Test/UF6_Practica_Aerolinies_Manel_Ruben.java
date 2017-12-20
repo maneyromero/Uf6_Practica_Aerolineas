@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,7 +60,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         rs.next();
                         codigo_avion = rs.getString("codigo_avion");
                         if (!codigo_avion.isEmpty()) {
-                                    passajero=null;
+                            passajero = null;
                             System.out.println("Introduce su DNI");
                             DNI = sc.next();
                             System.out.println("Introduce el nombre");
@@ -82,6 +83,21 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                     case 4:
                         break;
                     case 5:
+                        
+                        break;
+                    case 6:
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        System.out.println("Para proceder a elminar un billete, Introduce su codigo");
+                        num=sc.nextInt();
+                        String query1 = "DELETE FROM empleados WHERE ID like '" + num + "'";
+                        Connection con1 = DriverManager.getConnection(MYSQLDBConnection.url, MYSQLDBConnection.username, MYSQLDBConnection.password);
+                        Statement stmt1 = con1.createStatement();
+                        stmt1.executeUpdate(query1);
+                        break;
+                    case 10:
                         System.out.println("Exit");
                         break;
                     default:
@@ -93,18 +109,22 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
             Logger.getLogger(UF6_Practica_Aerolinies_Manel_Ruben.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    
-
-    
-
-    
     }
+
     private static void escribirMenu() {
-        System.out.println("-----Menu-----");
+        System.out.println("");
+        System.out.println("-------  AeroPlane.SL Program   -------");
         System.out.println("1- Añadir Passajero\n"
-                + "2- Buscar avion de un vuelo\n"
-                + "3- Hacer billete de vuelo\n"
-                + "4- Listar passajeros");
+                + "2- Añadir billete de vuelo\n"
+                + "3- Buscar avion de un vuelo\n"
+                + "4- Listar passajeros\n"
+                + "5- Listar Tickets vendidos de un Avion\n"
+                + "6- Listar Aviones de una Aerolinea\n"
+                + "7- Listar Aviones actuales en un Aeropuerto\n"
+                + "8- Cancelar/Elimnar Billete\n"
+                + "9- Elimniar Aviones de un destino\n"
+                + "10- Salir\n"
+                + "----------------------------------------------------------");
     }
 
 }
