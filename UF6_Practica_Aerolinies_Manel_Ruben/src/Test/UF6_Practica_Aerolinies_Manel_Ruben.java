@@ -16,6 +16,7 @@ import Utilities.ConnectDB;
 import Utilities.MYSQLDBConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,7 +42,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
         AeropuertoDAO aeropueto;
         AerolineaDAO aerolinea;
         AvionDAO avion;
-        PassajeroDAO passajero;
+        PassajeroDAO passajero=factory.cratePassajeroDAO();
         TicketDAO ticket;
         Scanner sc = new Scanner(System.in);
         int num = 0;
@@ -55,12 +56,13 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                     case 1:
                         System.out.println("Introduce el destino");
                         codigo_avion = sc.next();
-                        String query = "SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like '" + codigo_avion + "'))";
-                        ResultSet rs = DriverManager.getConnection(MYSQLDBConnection.url, MYSQLDBConnection.username, MYSQLDBConnection.password).createStatement().executeQuery(query);
+                        String query = "SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like ?))";
+                        PreparedStatement preparedStatement=con.prepareStatement(query);
+                        preparedStatement.setString(1, codigo_avion);  
+                        ResultSet rs =preparedStatement.executeQuery();
                         rs.next();
                         codigo_avion = rs.getString("codigo_avion");
                         if (!codigo_avion.isEmpty()) {
-                            passajero = null;
                             System.out.println("Introduce su DNI");
                             DNI = sc.next();
                             System.out.println("Introduce el nombre");
