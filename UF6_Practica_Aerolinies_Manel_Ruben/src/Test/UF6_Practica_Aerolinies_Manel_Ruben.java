@@ -126,6 +126,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                 + "8- Cancelar/Elimnar Billete\n"
                 + "9- Elimniar Aviones de un destino\n"
                 + "10- Salir\n"
+                + "Que quieres hacer?\n"
                 + "----------------------------------------------------------");
     }
 
