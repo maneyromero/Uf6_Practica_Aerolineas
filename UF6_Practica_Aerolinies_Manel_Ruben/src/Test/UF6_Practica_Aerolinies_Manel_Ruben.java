@@ -59,6 +59,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         String query = "SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like ?))";
                         PreparedStatement preparedStatement=con.prepareStatement(query);
                         preparedStatement.setString(1, codigo_avion);  
+                        
                         ResultSet rs =preparedStatement.executeQuery();
                         rs.next();
                         codigo_avion = rs.getString("codigo_avion");
