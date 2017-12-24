@@ -38,11 +38,12 @@ public class AvionDAOImp implements AvionDAO {
     }
 
     @Override
-    public ArrayList<Avion> listarAvion(Connection con) {
+    public ArrayList<Avion> listarAvionAerolinea(Connection con,String codigo) {
         ArrayList<Avion> avion = new ArrayList<>();
-        try (Statement statement = con.createStatement()) {
-            String query = "Select * from Aviones";
-            ResultSet rs = statement.executeQuery(query);
+        //hacer bien el select
+        try (PreparedStatement stmt = con.prepareStatement("Select * FROM aviones Where codigo_avion like ?")) {
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 avion.add(new Avion(rs.getString("codigo_avion"), rs.getString("codigo_aerolinea_fk"), rs.getString("modelo")));
