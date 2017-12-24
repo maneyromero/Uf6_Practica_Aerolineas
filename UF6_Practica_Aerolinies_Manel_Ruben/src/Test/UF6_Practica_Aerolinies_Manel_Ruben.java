@@ -91,8 +91,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                     case 6:
                         System.out.println("Para proceder a listar avion de una aerolinea, inserte el codigo de una aerolinea");
                         codigo=sc.next();
-                        
-                        
+                        avion.listarAvionAerolinea(con, codigo);  
                         break;
                     case 7:
                         break;
