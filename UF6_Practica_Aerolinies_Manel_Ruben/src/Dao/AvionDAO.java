@@ -17,7 +17,7 @@ public interface AvionDAO {
 
     public Avion buscarAvion(String codigo, Connection con);
 
-    public ArrayList<Avion> listarAvion(Connection con);
+    public ArrayList<Avion> listarAvionAerolinea(Connection con,String codigo);
 
     public void elliminarAvion(Connection con,String codigo);
 }

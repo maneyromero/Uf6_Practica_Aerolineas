@@ -33,7 +33,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     /**
      * @param args the command line arguments
      */
-    private static String nombre, DNI, apellido1, apellido2, codigo_avion;
+    private static String nombre, DNI, apellido1, apellido2, codigo;
     private static int edad;
 
     public static void main(String[] args) {
@@ -55,15 +55,15 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                 switch (num) {
                     case 1:
                         System.out.println("Introduce el destino");
-                        codigo_avion = sc.next();
+                        codigo = sc.next();
                         String query = "SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like ?))";
                         PreparedStatement preparedStatement=con.prepareStatement(query);
-                        preparedStatement.setString(1, codigo_avion);  
+                        preparedStatement.setString(1, codigo);  
                         
                         ResultSet rs =preparedStatement.executeQuery();
                         rs.next();
-                        codigo_avion = rs.getString("codigo_avion");
-                        if (!codigo_avion.isEmpty()) {
+                        codigo = rs.getString("codigo_avion");
+                        if (!codigo.isEmpty()) {
                             System.out.println("Introduce su DNI");
                             DNI = sc.next();
                             System.out.println("Introduce el nombre");
@@ -74,7 +74,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                             apellido2 = sc.next();
                             System.out.println("Introduce la edad");
                             edad = sc.nextInt();
-                            Passajero p = new Passajero(DNI, codigo_avion, nombre, apellido1, apellido2, edad);
+                            Passajero p = new Passajero(DNI, codigo, nombre, apellido1, apellido2, edad);
                             passajero.addPasajero(p, con);
                         }
                         con.close();
@@ -89,18 +89,22 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         
                         break;
                     case 6:
+                        System.out.println("Para proceder a listar avion de una aerolinea, inserte el codigo de una aerolinea");
+                        codigo=sc.next();
+                        
+                        
                         break;
                     case 7:
                         break;
                     case 8:
                         System.out.println("Para proceder a eliminar un billete, introduce su codigo");
-                        codigo_avion=sc.next();
-                        ticket.eliminarTicket(codigo_avion, con);
+                        codigo=sc.next();
+                        ticket.eliminarTicket(codigo, con);
                         break;
                     case 9:
                         System.out.println("Para proceder a elminar un avion, Introduce su codigo");
-                        codigo_avion=sc.next();
-                       avion.elliminarAvion(con, codigo_avion);
+                        codigo=sc.next();
+                       avion.elliminarAvion(con, codigo);
                         break;
                     case 10:
                         System.out.println("Exit");
