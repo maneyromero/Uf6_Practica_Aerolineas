@@ -86,7 +86,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         codigo=sc.next();
                         System.out.println("Introduce DNI cliente:");
                         DNI=sc.next();
-                        String query="INSERT INTO ticked(codigo_ticked, DNI_fk) VALUES (?,?)";
+                        query="INSERT INTO ticked(codigo_ticked, DNI_fk) VALUES (?,?)";
                         PreparedStatement preparedStatement1=con.prepareStatement(query);
                         preparedStatement.setString(1,codigo);
                         preparedStatement.setString(2, DNI);
