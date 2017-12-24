@@ -13,13 +13,10 @@ import Dao.PassajeroDAO;
 import Dao.TicketDAO;
 import Model.Passajero;
 import Utilities.ConnectDB;
-import Utilities.MYSQLDBConnection;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -89,37 +86,40 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         
                         break;
                     case 6:
-                        System.out.println("Para proceder a listar avion de una aerolinea, inserte el codigo de una aerolinea");
-                        codigo=sc.next();
-                        avion.listarAvionAerolinea(con, codigo);  
                         break;
                     case 7:
+                        System.out.println("Para proceder a listar avion de una aerolinea, inserte el codigo de una aerolinea");
+                        codigo=sc.next();
+                        avion.listarAvionAerolinea(con, codigo);
+                        
                         break;
                     case 8:
+                        break;
+                    case 9:
                         System.out.println("Para proceder a eliminar un billete, introduce su codigo");
                         codigo=sc.next();
                         ticket.eliminarTicket(codigo, con);
                         break;
-                    case 9:
+                    case 10:
                         System.out.println("Para proceder a elminar un avion, Introduce su codigo");
                         codigo=sc.next();
                        avion.elliminarAvion(con, codigo);
                         break;
-                    case 10:
+                    case 11:
                         System.out.println("Exit");
                         break;
                     default:
                         break;
 
                 }
-            } while (num != 5);
+            } while (num != 11);
         } catch (SQLException ex) {
             Logger.getLogger(UF6_Practica_Aerolinies_Manel_Ruben.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-   private static void escribirMenu() {
+     private static void escribirMenu() {
         System.out.println("");
         System.out.println("-------  AeroPlane.SL Program   -------");
         System.out.println("1- Anadir Passajero\n" //ruben
@@ -128,13 +128,14 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                 + "4- Listar passajeros\n"//manel
                 + "5- Listar Tickets vendidos de un Avion\n"//ruben
                 + "6- Listar Aerolineas"//manel
-                + "6- Listar Aviones de una Aerolinea\n"//ruben
-                + "7- Listar Aviones actuales en un Aeropuerto\n"//manel
-                + "8- Cancelar/Elimnar Billete\n"//ruben
-                + "9- Elimniar Aviones de un aeropuerto\n"//manel
-                + "10- Salir\n"//ruben
+                + "7- Listar Aviones de una Aerolinea\n"//ruben
+                + "8- Listar Aviones actuales en un Aeropuerto\n"//manel
+                + "9- Cancelar/Elimnar Billete\n"//ruben
+                + "10- Elimniar Aviones de un aeropuerto\n"//manel
+                + "11- Salir\n"//ruben
                 + "Que quieres hacer?\n"
                 + "----------------------------------------------------------");
     }
+
 
 }
