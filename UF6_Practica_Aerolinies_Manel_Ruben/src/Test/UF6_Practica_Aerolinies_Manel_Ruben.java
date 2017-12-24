@@ -117,16 +117,26 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     private static void escribirMenu() {
         System.out.println("");
         System.out.println("-------  AeroPlane.SL Program   -------");
-        System.out.println("1- AÃ±adir Passajero\n"
-                + "2- AÃ±adir billete de vuelo\n"
+        System.out.println("1- Añadir Passajero\n"
+                //ruben
+                + "2- Añadir billete\n"
+                //manel
                 + "3- Buscar avion de un vuelo\n"
+                //ruben
                 + "4- Listar passajeros\n"
+                //manel
                 + "5- Listar Tickets vendidos de un Avion\n"
+                //ruben
                 + "6- Listar Aviones de una Aerolinea\n"
+                //ruben
                 + "7- Listar Aviones actuales en un Aeropuerto\n"
+                //manel
                 + "8- Cancelar/Elimnar Billete\n"
-                + "9- Elimniar Aviones de un destino\n"
+                //ruben
+                + "9- Elimniar Aviones de un aeropuerto\n"
+                //manel
                 + "10- Salir\n"
+                //ruben
                 + "Que quieres hacer?\n"
                 + "----------------------------------------------------------");
     }
