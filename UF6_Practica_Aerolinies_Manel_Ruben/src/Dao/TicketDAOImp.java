@@ -36,11 +36,11 @@ public class TicketDAOImp implements TicketDAO {
     }
 
     @Override
-    public ArrayList<Ticket> listarTicket(Connection con) {
+    public ArrayList<Ticket> listarTicketAvion(Connection con,String codigo) {
         ArrayList<Ticket> ticket = new ArrayList<>();
-        try (Statement statement = con.createStatement()) {
-            String query = "Select * from ticked";
-            ResultSet rs = statement.executeQuery(query);
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `ticked` WHERE `DNI_fk` IN (SELECT DNI from pasajeros WHERE codigo_avion_fk LIKE (SELECT codigo_avion from aviones where codigo_avion like ?))")) {
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 ticket.add(new Ticket(rs.getString("codigo_ticked"), rs.getString("DNI_fk")));
