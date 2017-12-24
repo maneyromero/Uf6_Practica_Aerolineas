@@ -19,4 +19,5 @@ public interface AvionDAO {
 
     public ArrayList<Avion> listarAvion(Connection con);
 
+    public void elliminarAvion(Connection con,String codigo);
 }

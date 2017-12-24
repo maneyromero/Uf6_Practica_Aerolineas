@@ -54,4 +54,20 @@ public class AvionDAOImp implements AvionDAO {
         return avion;
     }
 
+    @Override
+    public void elliminarAvion(Connection con,String codigo) {
+        try (PreparedStatement stmt = con.prepareStatement("delete FROM aviones Where codigo_avion like ?")) {
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                System.out.println("no se ha eliminado");
+            } else {
+                System.out.println("avion eliminado");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
+    
 }
