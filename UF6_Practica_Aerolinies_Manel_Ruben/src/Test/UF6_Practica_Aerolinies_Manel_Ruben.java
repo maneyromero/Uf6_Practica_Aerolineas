@@ -12,11 +12,15 @@ import Dao.DAOFactory;
 import Dao.PassajeroDAO;
 import Dao.TicketDAO;
 import Model.Passajero;
+import Model.Ticket;
 import Utilities.ConnectDB;
+import Utilities.MYSQLDBConnection;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,65 +81,73 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         con.close();
                         break;
                     case 2:
+                        System.out.println("Vamos a añadir un ticket.");
+                        System.out.println("Introduce el codigo de ticket deseado:");
+                        codigo=sc.next();
+                        System.out.println("Introduce DNI cliente:");
+                        DNI=sc.next();
+                        String query="INSERT INTO ticked(codigo_ticked, DNI_fk) VALUES (?,?)";
+                        PreparedStatement preparedStatement1=con.prepareStatement(query);
+                        preparedStatement.setString(1,codigo);
+                        preparedStatement.setString(2, DNI);
+                        Ticket t= new Ticket(codigo, DNI);
+                        ticket.addTicket(t, con);
                         break;
                     case 3:
                         break;
                     case 4:
+                        System.out.println("Esto es una lista de todos los passajeros actuales");
+                      passajero.listarPassajero(con);
                         break;
                     case 5:
                         
                         break;
                     case 6:
-                        break;
-                    case 7:
                         System.out.println("Para proceder a listar avion de una aerolinea, inserte el codigo de una aerolinea");
                         codigo=sc.next();
-                        avion.listarAvionAerolinea(con, codigo);
-                        
+                        avion.listarAvionAerolinea(con, codigo);  
+                        break;
+                    case 7:
                         break;
                     case 8:
-                        break;
-                    case 9:
                         System.out.println("Para proceder a eliminar un billete, introduce su codigo");
                         codigo=sc.next();
                         ticket.eliminarTicket(codigo, con);
                         break;
-                    case 10:
+                    case 9:
                         System.out.println("Para proceder a elminar un avion, Introduce su codigo");
                         codigo=sc.next();
                        avion.elliminarAvion(con, codigo);
                         break;
-                    case 11:
+                    case 10:
                         System.out.println("Exit");
                         break;
                     default:
                         break;
 
                 }
-            } while (num != 11);
+            } while (num != 5);
         } catch (SQLException ex) {
             Logger.getLogger(UF6_Practica_Aerolinies_Manel_Ruben.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-     private static void escribirMenu() {
+   private static void escribirMenu() {
         System.out.println("");
         System.out.println("-------  AeroPlane.SL Program   -------");
         System.out.println("1- Anadir Passajero\n" //ruben
-                + "2- Anadir billete\n"//manel
+                + "2- Anadir billete\n"//manel//Done
                 + "3- Buscar avion de un vuelo\n"//ruben
-                + "4- Listar passajeros\n"//manel
+                + "4- Listar passajeros\n"//manel//Done
                 + "5- Listar Tickets vendidos de un Avion\n"//ruben
-                + "6- Listar Aerolineas"//manel
-                + "7- Listar Aviones de una Aerolinea\n"//ruben
-                + "8- Listar Aviones actuales en un Aeropuerto\n"//manel
-                + "9- Cancelar/Elimnar Billete\n"//ruben
-                + "10- Elimniar Aviones de un aeropuerto\n"//manel
-                + "11- Salir\n"//ruben
+                + "6- Listar Aviones de una Aerolinea\n"//ruben
+                + "7- Listar Aviones actuales en un Aeropuerto\n"//manel
+                + "8- Cancelar/Elimnar Billete\n"//ruben
+                + "9- Elimniar Aviones de un aeropuerto\n"//manel
+                + "10- Salir\n"//ruben
                 + "Que quieres hacer?\n"
                 + "----------------------------------------------------------");
     }
-
 
 }
