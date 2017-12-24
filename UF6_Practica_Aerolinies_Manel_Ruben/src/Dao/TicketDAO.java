@@ -20,4 +20,6 @@ public interface TicketDAO {
     public ArrayList<Ticket> listarTicket(Connection con);
 
     public Ticket buscarTicket(String codigo, Connection con);
+    
+    public void eliminarTicket(String codigo, Connection con);
 }

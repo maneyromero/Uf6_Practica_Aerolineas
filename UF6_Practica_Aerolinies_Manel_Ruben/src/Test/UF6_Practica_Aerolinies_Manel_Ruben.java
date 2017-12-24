@@ -43,7 +43,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
         AerolineaDAO aerolinea;
         AvionDAO avion=factory.crateAvionDAO();
         PassajeroDAO passajero=factory.cratePassajeroDAO();
-        TicketDAO ticket;
+        TicketDAO ticket=factory.crateTicketDAO();
         Scanner sc = new Scanner(System.in);
         int num = 0;
 
@@ -93,9 +93,12 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                     case 7:
                         break;
                     case 8:
+                        System.out.println("Para proceder a eliminar un billete, introduce su codigo");
+                        codigo_avion=sc.next();
+                        ticket.eliminarTicket(codigo_avion, con);
                         break;
                     case 9:
-                        System.out.println("Para proceder a elminar un billete, Introduce su codigo");
+                        System.out.println("Para proceder a elminar un avion, Introduce su codigo");
                         codigo_avion=sc.next();
                        avion.elliminarAvion(con, codigo_avion);
                         break;
