@@ -41,7 +41,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
         DAOFactory factory = new DAOFactory();
         AeropuertoDAO aeropueto;
         AerolineaDAO aerolinea;
-        AvionDAO avion;
+        AvionDAO avion=factory.crateAvionDAO();
         PassajeroDAO passajero=factory.cratePassajeroDAO();
         TicketDAO ticket;
         Scanner sc = new Scanner(System.in);
@@ -96,11 +96,8 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         break;
                     case 9:
                         System.out.println("Para proceder a elminar un billete, Introduce su codigo");
-                        num=sc.nextInt();
-                        String query1 = "DELETE FROM empleados WHERE ID like '" + num + "'";
-                        Connection con1 = DriverManager.getConnection(MYSQLDBConnection.url, MYSQLDBConnection.username, MYSQLDBConnection.password);
-                        Statement stmt1 = con1.createStatement();
-                        stmt1.executeUpdate(query1);
+                        codigo_avion=sc.next();
+                       avion.elliminarAvion(con, codigo_avion);
                         break;
                     case 10:
                         System.out.println("Exit");
@@ -119,8 +116,8 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     private static void escribirMenu() {
         System.out.println("");
         System.out.println("-------  AeroPlane.SL Program   -------");
-        System.out.println("1- Añadir Passajero\n" //ruben
-                + "2- Añadir billete\n"//manel
+        System.out.println("1- Anadir Passajero\n" //ruben
+                + "2- Anadir billete\n"//manel
                 + "3- Buscar avion de un vuelo\n"//ruben
                 + "4- Listar passajeros\n"//manel
                 + "5- Listar Tickets vendidos de un Avion\n"//ruben
