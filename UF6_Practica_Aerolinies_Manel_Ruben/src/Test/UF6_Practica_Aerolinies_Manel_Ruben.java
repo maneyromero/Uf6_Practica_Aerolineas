@@ -14,13 +14,10 @@ import Dao.TicketDAO;
 import Model.Passajero;
 import Model.Ticket;
 import Utilities.ConnectDB;
-import Utilities.MYSQLDBConnection;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +47,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
 
         try {
             Connection con = ConnectDB.openConnection();
+            PreparedStatement preparedStatement;
             do {
                 escribirMenu();
                 num = sc.nextInt();
@@ -58,7 +56,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         System.out.println("Introduce el destino");
                         codigo = sc.next();
                         String query = "SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like ?))";
-                        PreparedStatement preparedStatement=con.prepareStatement(query);
+                        preparedStatement=con.prepareStatement(query);
                         preparedStatement.setString(1, codigo);  
                         
                         ResultSet rs =preparedStatement.executeQuery();
@@ -79,6 +77,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                             passajero.addPasajero(p, con);
                         }
                         con.close();
+                        preparedStatement.close();
                         break;
                     case 2:
                         System.out.println("Vamos a añadir un ticket.");
@@ -87,20 +86,26 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         System.out.println("Introduce DNI cliente:");
                         DNI=sc.next();
                         query="INSERT INTO ticked(codigo_ticked, DNI_fk) VALUES (?,?)";
-                        PreparedStatement preparedStatement1=con.prepareStatement(query);
+                        preparedStatement=con.prepareStatement(query);
                         preparedStatement.setString(1,codigo);
                         preparedStatement.setString(2, DNI);
                         Ticket t= new Ticket(codigo, DNI);
                         ticket.addTicket(t, con);
+                        preparedStatement.close();
                         break;
                     case 3:
+                        System.out.println("Para proceder a buscar un avion, inserte el codigo del avion");
+                        codigo=sc.next();
+                        avion.buscarAvion(codigo, con);
                         break;
                     case 4:
                         System.out.println("Esto es una lista de todos los passajeros actuales");
                       passajero.listarPassajero(con);
                         break;
                     case 5:
-                        
+                        System.out.println("Para proceder a listar los tiquets de un avion, inserte el codigo dek avion");
+                        codigo = sc.next();
+                        ticket.listarTicketAvion(con, codigo);
                         break;
                     case 6:
                         System.out.println("Para proceder a listar avion de una aerolinea, inserte el codigo de una aerolinea");
@@ -108,6 +113,9 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         avion.listarAvionAerolinea(con, codigo);  
                         break;
                     case 7:
+                        System.out.println("Para proceder a listar avion de una aeropuerto, inserte el codigo de una aeropuerto");
+                        codigo=sc.next();
+                        avion.listarAvionAeropuerto(con, codigo);
                         break;
                     case 8:
                         System.out.println("Para proceder a eliminar un billete, introduce su codigo");
@@ -136,16 +144,16 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
    private static void escribirMenu() {
         System.out.println("");
         System.out.println("-------  AeroPlane.SL Program   -------");
-        System.out.println("1- Anadir Passajero\n" //ruben
+        System.out.println("1- Anadir Passajero\n" //ruben//done
                 + "2- Anadir billete\n"//manel//Done
-                + "3- Buscar avion de un vuelo\n"//ruben
+                + "3- Buscar avion\n"//ruben
                 + "4- Listar passajeros\n"//manel//Done
-                + "5- Listar Tickets vendidos de un Avion\n"//ruben
-                + "6- Listar Aviones de una Aerolinea\n"//ruben
-                + "7- Listar Aviones actuales en un Aeropuerto\n"//manel
-                + "8- Cancelar/Elimnar Billete\n"//ruben
-                + "9- Elimniar Aviones de un aeropuerto\n"//manel
-                + "10- Salir\n"//ruben
+                + "5- Listar Tickets vendidos de un Avion\n"//ruben//done
+                + "6- Listar Aviones de una Aerolinea\n"//manel
+                + "7- Listar Aviones actuales en un Aeropuerto\n"//ruben//done
+                + "8- Cancelar/Elimnar Billete\n"//manel
+                + "9- Elimniar Aviones de un aeropuerto\n"//ruben//done
+                + "10- Salir\n"//manel//done
                 + "Que quieres hacer?\n"
                 + "----------------------------------------------------------");
     }

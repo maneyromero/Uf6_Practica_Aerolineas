@@ -20,4 +20,6 @@ public interface AvionDAO {
     public ArrayList<Avion> listarAvionAerolinea(Connection con,String codigo);
 
     public void elliminarAvion(Connection con,String codigo);
+    
+    public ArrayList<Avion> listarAvionAeropuerto(Connection con,String codigo);
 }
