@@ -128,13 +128,14 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         break;
                     case 10:
                         System.out.println("Exit");
+                        ConnectDB.closeConnection();
                         break;
                     default:
                         break;
 
                 }
                 con.close();
-                ConnectDB.closeConnection();
+                
             } while (num != 5);
         } catch (SQLException ex) {
             Logger.getLogger(UF6_Practica_Aerolinies_Manel_Ruben.class.getName()).log(Level.SEVERE, null, ex);
