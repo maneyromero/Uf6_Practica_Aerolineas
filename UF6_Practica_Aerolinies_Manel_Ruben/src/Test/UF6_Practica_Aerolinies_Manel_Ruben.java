@@ -76,7 +76,6 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                             Passajero p = new Passajero(DNI, codigo, nombre, apellido1, apellido2, edad);
                             passajero.addPasajero(p, con);
                         }
-                        con.close();
                         preparedStatement.close();
                         break;
                     case 2:
@@ -134,6 +133,8 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         break;
 
                 }
+                con.close();
+                ConnectDB.closeConnection();
             } while (num != 5);
         } catch (SQLException ex) {
             Logger.getLogger(UF6_Practica_Aerolinies_Manel_Ruben.class.getName()).log(Level.SEVERE, null, ex);
