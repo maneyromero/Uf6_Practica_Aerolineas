@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.Statement;
 
 /**
  *
@@ -21,9 +20,8 @@ public class TicketDAOImp implements TicketDAO {
 
     @Override
     public void addTicket(Ticket ticket, Connection con) {
-        try (PreparedStatement stmt = con.prepareStatement("INSERT INTO ticked VALUES (?,?)")) {
-            stmt.setString(1, ticket.getCodigo_ticked());
-            stmt.setString(2, ticket.getDni());
+        try (PreparedStatement stmt = con.prepareStatement("INSERT INTO ticked( DNI_fk) VALUES (?)")) {
+            stmt.setString(1, ticket.getDni());
             if (stmt.executeUpdate() != 1) {
                 System.out.println("Error Ticket NO echo");
             } else {
