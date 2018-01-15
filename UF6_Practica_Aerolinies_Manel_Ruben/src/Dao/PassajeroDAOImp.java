@@ -28,7 +28,7 @@ public class PassajeroDAOImp implements PassajeroDAO {
             stmt.setString(3, p.getNombre());
             stmt.setString(4, p.getApellido1());
             stmt.setString(5, p.getApellido2());
-            stmt.setInt(6, p.getEdad());
+            stmt.setDate(6, p.getEdad());
             if (stmt.executeUpdate() != 1) {
                 System.out.println("Error Passajero NO a�adido");
             } else {
@@ -48,7 +48,7 @@ public class PassajeroDAOImp implements PassajeroDAO {
             ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
-                passajero.add(new Passajero(rs.getString("DNI"), rs.getString("codigo_avion_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getInt("edad")));
+                passajero.add(new Passajero(rs.getString("DNI"), rs.getString("codigo_avion_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDate("fecha_nacimiento")));
             }
 
         } catch (SQLException ex) {
@@ -66,7 +66,7 @@ public class PassajeroDAOImp implements PassajeroDAO {
             if (!rs.next()) {
                 return pasajero;
             } else {
-                pasajero = new Passajero(rs.getString("DNI"), rs.getString("codigo_avion_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getInt("edad"));
+                pasajero = new Passajero(rs.getString("DNI"), rs.getString("codigo_avion_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDate("fecha_nacimiento"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Manel
@@ -16,9 +18,9 @@ public class Passajero {
     private String nombre;
     private String apellido1;
     private String apellido2;
-    private int edad;
+    private Date edad;
 
-    public Passajero(String dni, String codigo_avion_fk, String nombre, String apellido1, String apellido2, int edad) {
+    public Passajero(String dni, String codigo_avion_fk, String nombre, String apellido1, String apellido2, Date edad) {
         this.dni = dni;
         this.codigo_avion_fk = codigo_avion_fk;
         this.nombre = nombre;
@@ -47,7 +49,7 @@ public class Passajero {
         return apellido2;
     }
 
-    public int getEdad() {
+    public Date getEdad() {
         return edad;
     }
 

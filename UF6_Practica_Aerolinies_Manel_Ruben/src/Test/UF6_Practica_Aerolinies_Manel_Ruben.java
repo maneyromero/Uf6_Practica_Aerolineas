@@ -15,9 +15,13 @@ import Model.Passajero;
 import Model.Ticket;
 import Utilities.ConnectDB;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +35,8 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     /**
      * @param args the command line arguments
      */
-    private static String nombre, DNI, apellido1, apellido2, codigo;
-    private static int edad;
+    private static String nombre, DNI, apellido1, apellido2, codigo,destino;
+    private static Date edad;
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -43,6 +47,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
         PassajeroDAO passajero=factory.cratePassajeroDAO();
         TicketDAO ticket=factory.crateTicketDAO();
         Scanner sc = new Scanner(System.in);
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
         int num = 0;
 
         try {
@@ -54,14 +59,14 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                 switch (num) {
                     case 1:
                         System.out.println("Introduce el destino");
-                        codigo = sc.next();
-                        String query = "SELECT v.codigo_avion FROM aviones as v WHERE codigo_aerolinea_fk in (SELECT l.codigo_aerolinea from aerolineas as l where l.codigo_aeropuerto_fk like (SELECT codigo_aeropuerto from aeropuertos WHERE nombre like ?))";
+                        destino = sc.next();
+                        String query = "SELECT codigo_vuelo FROM vuelos WHERE destino like ?))";
                         preparedStatement=con.prepareStatement(query);
-                        preparedStatement.setString(1, codigo);  
+                        preparedStatement.setString(1, destino);  
                         
                         ResultSet rs =preparedStatement.executeQuery();
                         rs.next();
-                        codigo = rs.getString("codigo_avion");
+                        codigo = rs.getString("codigo_vuelo");
                         if (!codigo.isEmpty()) {
                             System.out.println("Introduce su DNI");
                             DNI = sc.next();
@@ -71,14 +76,16 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                             apellido1 = sc.next();
                             System.out.println("Introduce el segundo apellido");
                             apellido2 = sc.next();
-                            System.out.println("Introduce la edad");
-                            edad = sc.nextInt();
+                            System.out.println("Introduce la fecha de nacimiento");
+                            destino=sc.next();
+                            edad = (Date)df.parse(destino);
                             Passajero p = new Passajero(DNI, codigo, nombre, apellido1, apellido2, edad);
                             passajero.addPasajero(p, con);
-                        }
+                        
                         System.out.println("Vamos a a?adir un billete.");
                         Ticket t= new Ticket(DNI);
                         ticket.addTicket(t, con);
+                        }
                         con.close();
                         preparedStatement.close();
                         break;
@@ -128,7 +135,9 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                 
             } while (num != 5);
         } catch (SQLException ex) {
-            Logger.getLogger(UF6_Practica_Aerolinies_Manel_Ruben.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getSQLState());
+        }catch(ParseException pex){
+            System.out.println(pex.getErrorOffset());
         }
 
     }
