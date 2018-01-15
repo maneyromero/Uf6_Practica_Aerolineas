@@ -76,20 +76,10 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                             Passajero p = new Passajero(DNI, codigo, nombre, apellido1, apellido2, edad);
                             passajero.addPasajero(p, con);
                         }
-                        con.close();
-                        preparedStatement.close();
-                        break;
-                    case 2:
                         System.out.println("Vamos a a?adir un billete.");
-                        System.out.println("Introduce el codigo de ticket deseado:");
-                        codigo=sc.next();
-                        System.out.println("Introduce DNI cliente:");
-                        DNI=sc.next();
-                        query="INSERT INTO ticked( DNI_fk) VALUES (?)";
-                        preparedStatement=con.prepareStatement(query);
-                        preparedStatement.setString(1,DNI);
-                        Ticket t= new Ticket( DNI);
+                        Ticket t= new Ticket(DNI);
                         ticket.addTicket(t, con);
+                        con.close();
                         preparedStatement.close();
                         break;
                     case 3:
