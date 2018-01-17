@@ -11,8 +11,8 @@ package Dao;
  */
 public class DAOFactory {
 
-    public AvionDAO crateAvionDAO() {
-        return new AvionDAOImp();
+    public VueloDAO crateVueloDAO() {
+        return new VueloDAOImp();
     }
 
     public AerolineaDAO crateAerolineaDAO() {

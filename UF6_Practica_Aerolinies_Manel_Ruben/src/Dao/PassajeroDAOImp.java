@@ -5,7 +5,6 @@
  */
 package Dao;
 
-import Model.Aerolinea;
 import Model.Passajero;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +27,7 @@ public class PassajeroDAOImp implements PassajeroDAO {
             stmt.setString(3, p.getNombre());
             stmt.setString(4, p.getApellido1());
             stmt.setString(5, p.getApellido2());
-            stmt.setDate(6, p.getEdad());
+            stmt.setDate(6,p.getEdad());
             if (stmt.executeUpdate() != 1) {
                 System.out.println("Error Passajero NO a�adido");
             } else {

@@ -5,7 +5,7 @@
  */
 package Dao;
 
-import Model.Avion;
+import Model.Vuelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,63 +16,63 @@ import java.util.ArrayList;
  *
  * @author Manel
  */
-public class AvionDAOImp implements AvionDAO {
+public class VueloDAOImp implements VueloDAO {
 
     @Override
-    public Avion buscarAvion(String codigo, Connection con) {
-        Avion avion = null;
-        try (PreparedStatement stmt = con.prepareStatement("Select * FROM aviones Where codigo_avion like ?")) {
+    public Vuelo buscarVuelos(String codigo, Connection con) {
+        Vuelo vuelo = null;
+        try (PreparedStatement stmt = con.prepareStatement("Select * FROM vuelos Where codigo_avion like ?")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
             if (!rs.next()) {
-                return avion;
+                return vuelo;
             } else {
-                avion = new Avion(rs.getString("codigo_avion"), rs.getString("codigo_aerolinea_fk"), rs.getString("modelo"));
+                vuelo = new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
-        return avion;
+        return vuelo;
     }
 
     @Override
-    public ArrayList<Avion> listarAvionAerolinea(Connection con,String codigo) {
-        ArrayList<Avion> avion = new ArrayList<>();
+    public ArrayList<Vuelo> listarVueloAerolinea(Connection con,String codigo) {
+        ArrayList<Vuelo> vuelo = new ArrayList<>();
         //hacer bien el select
-        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `aviones` WHERE `codigo_aerolinea_fk`like (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aerolinea like ?)")) {
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `vuelo` WHERE `codigo_aerolinea_fk`like (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aerolinea like ?)")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                avion.add(new Avion(rs.getString("codigo_avion"), rs.getString("codigo_aerolinea_fk"), rs.getString("modelo")));
+                vuelo.add(new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen")));
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return avion;
+        return vuelo;
     }
     @Override
-    public ArrayList<Avion> listarAvionAeropuerto(Connection con,String codigo) {
-        ArrayList<Avion> avion = new ArrayList<>();
+    public ArrayList<Vuelo> listarVueloAeropuerto(Connection con,String codigo) {
+        ArrayList<Vuelo> vuelo = new ArrayList<>();
         //hacer bien el select
-        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `aviones` WHERE `codigo_aerolinea_fk`in (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aeropuerto_fk LIKE(SELECT codigo_aeropuerto FROM aeropuertos WHERE codigo_aeropuerto LIKE ?))")) {
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `vuelos` WHERE `codigo_aerolinea_fk`in (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aeropuerto_fk LIKE(SELECT codigo_aeropuerto FROM aeropuertos WHERE codigo_aeropuerto LIKE ?))")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                avion.add(new Avion(rs.getString("codigo_avion"), rs.getString("codigo_aerolinea_fk"), rs.getString("modelo")));
+                vuelo.add(new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen")));
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return avion;
+        return vuelo;
     }
 
     @Override
-    public void elliminarAvion(Connection con,String codigo) {
+    public void elliminarVuelo(Connection con,String codigo) {
         try (PreparedStatement stmt = con.prepareStatement("delete FROM aviones Where codigo_avion like ?")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
@@ -86,5 +86,6 @@ public class AvionDAOImp implements AvionDAO {
         }
 
     }
+
     
 }
