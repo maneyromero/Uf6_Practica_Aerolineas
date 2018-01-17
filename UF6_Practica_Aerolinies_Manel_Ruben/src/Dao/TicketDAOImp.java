@@ -20,12 +20,13 @@ public class TicketDAOImp implements TicketDAO {
 
     @Override
     public void addTicket(Ticket ticket, Connection con) {
-        try (PreparedStatement stmt = con.prepareStatement("INSERT INTO ticked( DNI_fk) VALUES (?)")) {
-            stmt.setString(1, ticket.getDni());
+        try (PreparedStatement stmt = con.prepareStatement("INSERT INTO ticket VALUES (?,?)")) {
+            stmt.setString(1, ticket.getCodigo_ticked());
+            stmt.setString(2, ticket.getDni());
             if (stmt.executeUpdate() != 1) {
                 System.out.println("Error Ticket NO echo");
             } else {
-                System.out.println("Ticked echo!!");
+                System.out.println("Ticket echo!!");
             }
         } catch (SQLException ex) {
             System.out.println("Error " + ex);
@@ -36,7 +37,7 @@ public class TicketDAOImp implements TicketDAO {
     @Override
     public ArrayList<Ticket> listarTicketAvion(Connection con,String codigo) {
         ArrayList<Ticket> ticket = new ArrayList<>();
-        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `ticked` WHERE `DNI_fk` IN (SELECT DNI from pasajeros WHERE codigo_avion_fk LIKE (SELECT codigo_avion from aviones where codigo_avion like ?))")) {
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `ticket` WHERE `DNI_fk` IN (SELECT DNI from pasajeros WHERE codigo_vuelo_fk LIKE (SELECT codigo_vuelo from Vuelos where codigo_vuelo like ?))")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
 
@@ -53,7 +54,7 @@ public class TicketDAOImp implements TicketDAO {
     @Override
     public Ticket buscarTicket(String codigo, Connection con) {
         Ticket ticket = null;
-        try (PreparedStatement stmt = con.prepareStatement("Select * FROM ticked Where codigo_ticked like ?")) {
+        try (PreparedStatement stmt = con.prepareStatement("Select * FROM ticket Where codigo_ticked like ?")) {
             ResultSet rs = stmt.executeQuery();
             stmt.setString(1, codigo);
             if (!rs.next()) {
@@ -69,13 +70,13 @@ public class TicketDAOImp implements TicketDAO {
         return ticket;
     }
         public void eliminarTicket(String codigo, Connection con) {
-        try (PreparedStatement stmt = con.prepareStatement("delete FROM ticked Where codigo_ticked like ?")) {
+        try (PreparedStatement stmt = con.prepareStatement("delete FROM ticket Where codigo_ticked like ?")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
             if (!rs.next()) {
                 System.out.println("no se ha eliminado");
             } else {
-                System.out.println("ticked eliminado");
+                System.out.println("ticket eliminado");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

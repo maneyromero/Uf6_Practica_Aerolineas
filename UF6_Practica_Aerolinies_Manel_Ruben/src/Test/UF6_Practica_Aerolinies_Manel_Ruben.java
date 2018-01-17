@@ -78,14 +78,14 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                             apellido2 = sc.next();
                             System.out.println("Introduce la fecha de nacimiento");
                             destino=sc.next();
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                             java.sql.Date sqlDate = new java.sql.Date(sdf.parse(destino).getTime());
                             Passajero p = new Passajero(DNI, codigo, nombre, apellido1, apellido2, sqlDate);
                             passajero.addPasajero(p, con);
                         
                         System.out.println("Vamos a a?adir un billete.");
-                        String CodTicket=DNI.substring(5, 9)+rs.getString("codigo_vuelo");
-                        Ticket t= new Ticket(CodTicket);
+                        String CodTicket=DNI.substring(5, 9)+codigo;
+                        Ticket t= new Ticket(CodTicket,DNI);
                         ticket.addTicket(t, con);
                         }
                         con.close();
