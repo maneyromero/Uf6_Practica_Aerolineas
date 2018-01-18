@@ -99,7 +99,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         vuelo.buscarVuelos(codigo, con);
                         break;
                     case 3:
-                        System.out.println("Esto es una lista de todos los passajeros actuales");
+                        System.out.println("Introduce el codigo del vuelo para listar todos sus pasajeros y tickets?");
                         passajero.listarPassajero(con);
                         break;
                     case 4:
@@ -146,7 +146,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     private static void escribirMenu() {
         System.out.println("");
         System.out.println("-------  AeroPlane.SL Program   -------");
-        System.out.println("1- Anadir Passajero\n" //ruben//done================================> ok y echo
+        System.out.println("1- Anadir Passajero\n" //ruben//done================================> ok y echo //arreglar
                 + "2- Buscar vuelo\n"//ruben ===================================================> ok y echo
                 + "3- Listar passajeros y tickets de un vuelo\n"//manel//Done===================> ok y no echo
                 + "4- Listar vuelos de una Aerolinea\n"//manel==================================> ok y echo
