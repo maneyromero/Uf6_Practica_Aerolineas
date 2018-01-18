@@ -17,9 +17,9 @@ public interface VueloDAO {
 
     public Vuelo buscarVuelos(String codigo, Connection con);
 
-    public ArrayList<Vuelo> listarVueloAerolinea(Connection con,String codigo);
+    public ArrayList<Vuelo> listarVueloAerolinea(Connection con, String codigo);
 
-    public void elliminarVuelo(Connection con,String codigo);
-    
-    public ArrayList<Vuelo> listarVueloAeropuerto(Connection con,String codigo);
+    public void elliminarVuelo(Connection con, String codigo);
+
+    public ArrayList<Vuelo> listarVueloAeropuerto(Connection con, String codigo);
 }

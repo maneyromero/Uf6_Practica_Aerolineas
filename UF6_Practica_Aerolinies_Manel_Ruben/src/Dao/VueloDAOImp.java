@@ -37,7 +37,7 @@ public class VueloDAOImp implements VueloDAO {
     }
 
     @Override
-    public ArrayList<Vuelo> listarVueloAerolinea(Connection con,String codigo) {
+    public ArrayList<Vuelo> listarVueloAerolinea(Connection con, String codigo) {
         ArrayList<Vuelo> vuelo = new ArrayList<>();
         //hacer bien el select
         try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `vuelo` WHERE `codigo_aerolinea_fk`like (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aerolinea like ?)")) {
@@ -53,8 +53,9 @@ public class VueloDAOImp implements VueloDAO {
         }
         return vuelo;
     }
+
     @Override
-    public ArrayList<Vuelo> listarVueloAeropuerto(Connection con,String codigo) {
+    public ArrayList<Vuelo> listarVueloAeropuerto(Connection con, String codigo) {
         ArrayList<Vuelo> vuelo = new ArrayList<>();
         //hacer bien el select
         try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `vuelos` WHERE `codigo_aerolinea_fk`in (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aeropuerto_fk LIKE(SELECT codigo_aeropuerto FROM aeropuertos WHERE codigo_aeropuerto LIKE ?))")) {
@@ -72,7 +73,7 @@ public class VueloDAOImp implements VueloDAO {
     }
 
     @Override
-    public void elliminarVuelo(Connection con,String codigo) {
+    public void elliminarVuelo(Connection con, String codigo) {
         try (PreparedStatement stmt = con.prepareStatement("delete FROM aviones Where codigo_avion like ?")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
@@ -87,5 +88,4 @@ public class VueloDAOImp implements VueloDAO {
 
     }
 
-    
 }

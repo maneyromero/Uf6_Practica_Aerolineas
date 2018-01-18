@@ -17,9 +17,9 @@ public interface TicketDAO {
 
     public void addTicket(Ticket ticket, Connection con);
 
-    public ArrayList<Ticket> listarTicketAvion(Connection con,String codigo);
+    public ArrayList<Ticket> listarTicketAvion(Connection con, String codigo);
 
     public Ticket buscarTicket(String codigo, Connection con);
-    
+
     public void eliminarTicket(String codigo, Connection con);
 }

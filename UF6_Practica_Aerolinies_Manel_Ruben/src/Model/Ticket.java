@@ -14,7 +14,7 @@ public class Ticket {
     private String codigo_ticked;
     private String dni;
 
-    public Ticket( String dni) {
+    public Ticket(String dni) {
         this.dni = dni;
     }
 

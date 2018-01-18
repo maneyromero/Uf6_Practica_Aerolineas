@@ -35,7 +35,7 @@ public class TicketDAOImp implements TicketDAO {
     }
 
     @Override
-    public ArrayList<Ticket> listarTicketAvion(Connection con,String codigo) {
+    public ArrayList<Ticket> listarTicketAvion(Connection con, String codigo) {
         ArrayList<Ticket> ticket = new ArrayList<>();
         try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `ticket` WHERE `DNI_fk` IN (SELECT DNI from pasajeros WHERE codigo_vuelo_fk LIKE (SELECT codigo_vuelo from Vuelos where codigo_vuelo like ?))")) {
             stmt.setString(1, codigo);
@@ -69,7 +69,8 @@ public class TicketDAOImp implements TicketDAO {
         }
         return ticket;
     }
-        public void eliminarTicket(String codigo, Connection con) {
+
+    public void eliminarTicket(String codigo, Connection con) {
         try (PreparedStatement stmt = con.prepareStatement("delete FROM ticket Where codigo_ticked like ?")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();

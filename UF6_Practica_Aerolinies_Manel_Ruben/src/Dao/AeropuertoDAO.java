@@ -18,5 +18,5 @@ public interface AeropuertoDAO {
     public Aeropuerto buscarAeropuerto(String codigo, Connection con);
 
     public ArrayList<Aeropuerto> listarAeropuerto(Connection con);
-    
+
 }
