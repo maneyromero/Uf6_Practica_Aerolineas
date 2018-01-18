@@ -24,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import Dao.VueloDAO;
+import Model.Vuelo;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +38,7 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     /**
      * @param args the command line arguments
      */
-    private static String nombre, DNI, apellido1, apellido2, codigo, destino;
+    private static String nombre, DNI, apellido1, apellido2, codigo, destino,origen;
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -59,16 +61,13 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                 num = sc.nextInt();
                 switch (num) {
                     case 1:
-                        System.out.println("Introduce el destino");
+                        System.out.println("Introduce el origen");
                         destino = sc.next();
-                        String query = "SELECT codigo_vuelo FROM vuelos WHERE destino like ?";
-                        preparedStatement = con.prepareStatement(query);
-                        preparedStatement.setString(1, destino);
+                        System.out.println("Introduce el destino");
+                        origen=sc.next();
+                        Vuelo v =vuelo.buscarVuelos(destino,origen, con);
 
-                        ResultSet rs = preparedStatement.executeQuery();
-                        rs.next();
-
-                        codigo = rs.getString("codigo_vuelo");
+                        codigo = v.getCodigo_vuelo();
                         if (!codigo.isEmpty()) {
                             System.out.println("Introduce su DNI");
                             DNI = sc.next();
@@ -90,22 +89,25 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                             Ticket t = new Ticket(CodTicket, DNI);
                             ticket.addTicket(t, con);
                         }
-                        con.close();
-                        preparedStatement.close();
                         break;
                     case 2:
-                        System.out.println("Para proceder a buscar un vuelo, inserte el codigo del avion");
+                        System.out.println("Para proceder a buscar un vuelo, inserte el codigo del vuelo");
                         codigo = sc.next();
-                        vuelo.buscarVuelos(codigo, con);
+                        Vuelo g = vuelo.buscarVuelos(codigo, con);
+                        System.out.println("Codigo Vuelo: " + g.getCodigo_vuelo() + " Codigo Aerolinea" + g.getCodigo_aerolinea_fk() + " Destino: " + g.getDestino() + " Origen: " + g.getOrigen());
                         break;
                     case 3:
                         System.out.println("Introduce el codigo del vuelo para listar todos sus pasajeros y tickets?");
-                        passajero.listarPassajero(con);
+                        codigo = sc.next();
+                        ArrayList<Passajero> p = passajero.listarPassajero(con, codigo);
+                        p.forEach((p1) -> {System.out.println("Nombre: "+p1.getNombre()+" Apellido 1: "+p1.getApellido1()+" Apellido 2: "+p1.getApellido2()+" DNI: "+p1.getDni()+" Fecha Nacimiento: "+p1.getEdad()+" Codigo Vuelo: "+p1.getCodigo_avion_fk()+"Codigo Ticket: "+p1.getTicket().getCodigo_ticked());
+                });
                         break;
                     case 4:
                         System.out.println("Para proceder a listar vuelo de una aerolinea, inserte el codigo de una aerolinea");
                         codigo = sc.next();
-                        vuelo.listarVueloAerolinea(con, codigo);
+                        ArrayList<Vuelo> arrayVuelos=vuelo.listarVueloAerolinea(con, codigo);
+                        arrayVuelos.forEach((v1)->{System.out.println("Codigo Vuelo: "+v1.getCodigo_vuelo()+"Codigo Aerolinea: "+v1.getCodigo_aerolinea_fk()+" Destino: "+v1.getDestino()+" Origen: "+v1.getOrigen());});
                         break;
                     case 5:
                         System.out.println("Para proceder a eliminar un billete, introduce su codigo");

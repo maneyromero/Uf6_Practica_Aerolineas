@@ -15,7 +15,9 @@ import java.util.ArrayList;
  */
 public interface VueloDAO {
 
-    public Vuelo buscarVuelos(String codigo, Connection con);
+    public Vuelo buscarVuelos(String destino,String origen, Connection con);
+    
+    public Vuelo buscarVuelos(String destino, Connection con);
 
     public ArrayList<Vuelo> listarVueloAerolinea(Connection con, String codigo);
 

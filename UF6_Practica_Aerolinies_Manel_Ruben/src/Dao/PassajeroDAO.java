@@ -17,7 +17,7 @@ public interface PassajeroDAO {
 
     public void addPasajero(Passajero p, Connection con);
 
-    public ArrayList<Passajero> listarPassajero(Connection con,String codigo);
+    public ArrayList<Passajero> listarPassajero(Connection con, String codigo);
 
     public Passajero buscarPassajero(String dni, Connection con);
 }

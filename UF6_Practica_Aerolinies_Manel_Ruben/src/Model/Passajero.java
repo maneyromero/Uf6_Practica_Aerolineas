@@ -19,6 +19,7 @@ public class Passajero {
     private String apellido1;
     private String apellido2;
     private Date edad;
+    private Ticket ticket;
 
     public Passajero(String dni, String codigo_avion_fk, String nombre, String apellido1, String apellido2, Date edad) {
         this.dni = dni;
@@ -27,6 +28,20 @@ public class Passajero {
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.edad = edad;
+    }
+
+    public Passajero(String dni, String codigo_avion_fk, String nombre, String apellido1, String apellido2, Date edad, Ticket ticket) {
+        this.dni = dni;
+        this.codigo_avion_fk = codigo_avion_fk;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.edad = edad;
+        this.ticket = ticket;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
     }
 
     public String getDni() {

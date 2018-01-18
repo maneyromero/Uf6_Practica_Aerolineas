@@ -30,9 +30,9 @@ public class PassajeroDAOImp implements PassajeroDAO {
             stmt.setString(5, p.getApellido2());
             stmt.setDate(6, p.getEdad());
             if (stmt.executeUpdate() != 1) {
-                System.out.println("Error Passajero NO a?adido");
+                System.out.println("Error Passajero NO a�adido");
             } else {
-                System.out.println("Passajero A?adido!!");
+                System.out.println("Passajero A�adido!!");
             }
         } catch (SQLException ex) {
             System.out.println("Error " + ex);
@@ -41,16 +41,16 @@ public class PassajeroDAOImp implements PassajeroDAO {
     }
 
     @Override
-    public ArrayList<Passajero> listarPassajero(Connection con,String codigo) {
+    public ArrayList<Passajero> listarPassajero(Connection con, String codigo) {
         ArrayList<Passajero> passajero = new ArrayList<>();
         ArrayList<Ticket> ticket = new ArrayList<>();
         try (Statement statement = con.createStatement()) {
-            String query = "SELECT p.nombre,p.apellido1,p.apellido2,p.fecha_nacimiento,p.codigo_vuelo_fk,t.* FROM pasajeros as p, ticket as t WHERE p.codigo_vuelo_fk LIKE (?) and p.DNI LIKE t.DNI_fk";
+            String query = "SELECT p.*,t.* FROM pasajeros as p, ticket as t WHERE p.codigo_vuelo_fk LIKE (?) and p.DNI LIKE t.DNI_fk";
             ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
-                Ticket t=new Ticket(rs.getString("codigo_ticked"), rs.getString("DNI_fk"));
-                passajero.add(new Passajero(rs.getString("DNI"), rs.getString("codigo_avion_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDate("fecha_nacimiento"),t));
+                Ticket t = new Ticket(rs.getString("codigo_ticked"), rs.getString("DNI_fk"));
+                passajero.add(new Passajero(rs.getString("DNI"), rs.getString("codigo_avion_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDate("fecha_nacimiento"), t));
                 ticket.add(t);
             }
 
