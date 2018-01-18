@@ -16,7 +16,6 @@ import Utilities.ConnectDB;
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -121,17 +120,14 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
                         break;
                     case 7:
                         System.out.println("Exit");
-                        ConnectDB.closeConnection();
-                        con.close();
+                        System.out.println("Gracias por usar AeroPlane.SL Program , hasta pronto !");
                         break;
                     default:
                         break;
 
                 }
 
-            } while (num != 5);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            } while (num != 7);
         } catch (ParseException pex) {
             System.out.println(pex.getMessage());
         } finally {
@@ -148,9 +144,9 @@ public class UF6_Practica_Aerolinies_Manel_Ruben {
     private static void escribirMenu() {
         System.out.println("");
         System.out.println("-------  AeroPlane.SL Program   -------");
-        System.out.println("1- Anadir Passajero\n" //ruben//done================================> ok y echo //arreglar
+        System.out.println("1- Anadir Passajero\n" //ruben//done================================> ok y echo //arreglar arreglado
                 + "2- Buscar vuelo\n"//ruben ===================================================> ok y echo
-                + "3- Listar passajeros y tickets de un vuelo\n"//manel//Done===================> ok y no echo
+                + "3- Listar passajeros y tickets de un vuelo\n"//manel//Done===================> ok y echo
                 + "4- Listar vuelos de una Aerolinea\n"//manel==================================> ok y echo
                 + "5- Cancelar/Elimnar Billete\n"//manel =======================================> ok y echo
                 + "6- Elimniar vuelo\n"//ruben//done ===========================================> ok y echo

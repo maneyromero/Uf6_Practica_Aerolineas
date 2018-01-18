@@ -19,17 +19,16 @@ import java.util.ArrayList;
 public class VueloDAOImp implements VueloDAO {
 
     @Override
-    public Vuelo buscarVuelos(String destino,String origen, Connection con) {
+    public Vuelo buscarVuelos(String destino, String origen, Connection con) {
         Vuelo vuelo = null;
-        try (PreparedStatement preparedStatement = con.prepareStatement("SELECT codigo_vuelo FROM vuelos WHERE destino like ? and origen like ?");) {
+        try (PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM vuelos WHERE destino like ? and origen like ?");) {
             preparedStatement.setString(1, destino);
             preparedStatement.setString(2, origen);
 
             ResultSet rs = preparedStatement.executeQuery();
-            rs.next();
-            if (!rs.next()) {
-                return vuelo;
-            } else {
+            
+            while (rs.next()) {
+
                 vuelo = new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen"));
             }
         } catch (SQLException ex) {
@@ -38,16 +37,16 @@ public class VueloDAOImp implements VueloDAO {
 
         return vuelo;
     }
-    
+
     @Override
     public Vuelo buscarVuelos(String codigo, Connection con) {
         Vuelo vuelo = null;
-        try (PreparedStatement stmt = con.prepareStatement("Select * FROM vuelos Where codigo_avion like ?")) {
+        try (PreparedStatement stmt = con.prepareStatement("Select * FROM vuelos Where codigo_vuelo like ?")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
-            if (!rs.next()) {
-                return vuelo;
-            } else {
+            while(rs.next()) {
+               
+            
                 vuelo = new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen"));
             }
         } catch (SQLException ex) {
@@ -61,7 +60,7 @@ public class VueloDAOImp implements VueloDAO {
     public ArrayList<Vuelo> listarVueloAerolinea(Connection con, String codigo) {
         ArrayList<Vuelo> vuelo = new ArrayList<>();
         //hacer bien el select
-        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `vuelo` WHERE `codigo_aerolinea_fk`like (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aerolinea like ?)")) {
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `vuelos` WHERE `codigo_aerolinea_fk`like (SELECT codigo_aerolinea FROM aerolineas WHERE codigo_aerolinea like ?)")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
 
@@ -97,12 +96,9 @@ public class VueloDAOImp implements VueloDAO {
     public void elliminarVuelo(Connection con, String codigo) {
         try (PreparedStatement stmt = con.prepareStatement("delete FROM vuelos Where codigo_vuelo like ?")) {
             stmt.setString(1, codigo);
-            stmt.executeUpdate();
+            int i = stmt.executeUpdate();
 
-            PreparedStatement stmt1 = con.prepareStatement("SELECT * FROM vuelos Where codigo_vuelo like ?");
-            stmt1.setString(1, codigo);
-            ResultSet rs = stmt.executeQuery();
-            if (!rs.next()) {
+            if (i >= 1) {
                 System.out.println("vuelo eliminado");
             } else {
                 System.out.println("no se ha eliminado");

@@ -73,11 +73,11 @@ public class TicketDAOImp implements TicketDAO {
     public void eliminarTicket(String codigo, Connection con) {
         try (PreparedStatement stmt = con.prepareStatement("delete FROM ticket Where codigo_ticked like ?")) {
             stmt.setString(1, codigo);
-            ResultSet rs = stmt.executeQuery();
-            if (!rs.next()) {
-                System.out.println("no se ha eliminado");
+            int i=stmt.executeUpdate();
+            if (i>=1) {
+                System.out.println("se ha eliminado");
             } else {
-                System.out.println("ticket eliminado");
+                System.out.println("no se ha eliminado");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
