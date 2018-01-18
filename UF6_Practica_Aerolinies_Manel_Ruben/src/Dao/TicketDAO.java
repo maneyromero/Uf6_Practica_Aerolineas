@@ -22,4 +22,6 @@ public interface TicketDAO {
     public Ticket buscarTicket(String codigo, Connection con);
 
     public void eliminarTicket(String codigo, Connection con);
+
+    public boolean comprobarTickets(Connection con);
 }

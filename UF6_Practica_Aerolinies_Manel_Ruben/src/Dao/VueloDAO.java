@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 public interface VueloDAO {
 
-    public Vuelo buscarVuelos(String destino,String origen, Connection con);
-    
+    public Vuelo buscarVuelos(String destino, String origen, Connection con);
+
     public Vuelo buscarVuelos(String destino, Connection con);
 
     public ArrayList<Vuelo> listarVueloAerolinea(Connection con, String codigo);
@@ -24,4 +24,8 @@ public interface VueloDAO {
     public void elliminarVuelo(Connection con, String codigo);
 
     public ArrayList<Vuelo> listarVueloAeropuerto(Connection con, String codigo);
+
+    public ArrayList<Vuelo> listarVuelos(Connection con);
+
+    public ArrayList<Vuelo> listarVuelos(Connection con, String DNI);
 }

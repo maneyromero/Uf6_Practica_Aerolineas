@@ -20,4 +20,6 @@ public interface PassajeroDAO {
     public ArrayList<Passajero> listarPassajero(Connection con, String codigo);
 
     public Passajero buscarPassajero(String dni, Connection con);
+
+    public ArrayList<Passajero> listarPassajeros(Connection con);
 }

@@ -18,6 +18,40 @@ import java.util.ArrayList;
  */
 public class VueloDAOImp implements VueloDAO {
 
+    public ArrayList<Vuelo> listarVuelos(Connection con, String DNI) {
+        ArrayList<Vuelo> vuelo = new ArrayList<>();
+        //hacer bien el select
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `pasajeros`,vuelos WHERE pasajeros.DNI LIKE ? and pasajeros.codigo_vuelo_fk LIKE vuelos.codigo_vuelo")) {
+            stmt.setString(1, DNI);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                vuelo.add(new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen")));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return vuelo;
+    }
+
+    @Override
+    public ArrayList<Vuelo> listarVuelos(Connection con) {
+        ArrayList<Vuelo> vuelo = new ArrayList<>();
+        //hacer bien el select
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM `vuelos`")) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                vuelo.add(new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen")));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return vuelo;
+    }
+
     @Override
     public Vuelo buscarVuelos(String destino, String origen, Connection con) {
         Vuelo vuelo = null;
@@ -26,7 +60,7 @@ public class VueloDAOImp implements VueloDAO {
             preparedStatement.setString(2, origen);
 
             ResultSet rs = preparedStatement.executeQuery();
-            
+
             while (rs.next()) {
 
                 vuelo = new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen"));
@@ -44,9 +78,8 @@ public class VueloDAOImp implements VueloDAO {
         try (PreparedStatement stmt = con.prepareStatement("Select * FROM vuelos Where codigo_vuelo like ?")) {
             stmt.setString(1, codigo);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
-               
-            
+            while (rs.next()) {
+
                 vuelo = new Vuelo(rs.getString("codigo_vuelo"), rs.getString("codigo_aerolinea_fk"), rs.getString("destino"), rs.getString("origen"));
             }
         } catch (SQLException ex) {

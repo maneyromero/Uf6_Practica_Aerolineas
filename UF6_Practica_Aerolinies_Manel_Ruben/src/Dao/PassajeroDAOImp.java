@@ -21,6 +21,22 @@ import java.sql.Statement;
 public class PassajeroDAOImp implements PassajeroDAO {
 
     @Override
+    public ArrayList<Passajero> listarPassajeros(Connection con) {
+        ArrayList<Passajero> passajero = new ArrayList<>();
+        try (PreparedStatement statement = con.prepareStatement("SELECT * FROM pasajeros")) {
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                passajero.add(new Passajero(rs.getString("DNI"), rs.getString("codigo_vuelo_fk"), rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDate("fecha_nacimiento")));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return passajero;
+    }
+
+    @Override
     public void addPasajero(Passajero p, Connection con) {
         try (PreparedStatement stmt = con.prepareStatement("INSERT INTO  pasajeros VALUES (?,?,?,?,?,?)")) {
             stmt.setString(1, p.getDni());
@@ -45,7 +61,7 @@ public class PassajeroDAOImp implements PassajeroDAO {
         ArrayList<Passajero> passajero = new ArrayList<>();
         ArrayList<Ticket> ticket = new ArrayList<>();
         try (PreparedStatement statement = con.prepareStatement("SELECT * FROM pasajeros, ticket WHERE pasajeros.DNI LIKE ticket.DNI_fk and pasajeros.codigo_vuelo_fk LIKE ?")) {
-                        statement.setString(1, codigo);
+            statement.setString(1, codigo);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
